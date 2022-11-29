@@ -1,0 +1,258 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang3082{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.22000}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang10 -- MySQL Workbench Forward Engineering\par
+\par
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;\par
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;\par
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';\par
+\par
+-- -----------------------------------------------------\par
+-- Schema youtube\par
+-- -----------------------------------------------------\par
+\par
+-- -----------------------------------------------------\par
+-- Schema youtube\par
+-- -----------------------------------------------------\par
+CREATE SCHEMA IF NOT EXISTS `youtube` DEFAULT CHARACTER SET utf8 ;\par
+USE `youtube` ;\par
+\par
+-- -----------------------------------------------------\par
+-- Table `youtube`.`usuari`\par
+-- -----------------------------------------------------\par
+CREATE TABLE IF NOT EXISTS `youtube`.`usuari` (\par
+  `id_usuari` INT NOT NULL AUTO_INCREMENT,\par
+  `nom` VARCHAR(45) NOT NULL,\par
+  `e-mail` VARCHAR(45) NOT NULL,\par
+  `password` VARCHAR(20) NOT NULL,\par
+  `data_naixement` DATE NULL,\par
+  `sexe` VARCHAR(20) NULL,\par
+  `pais` VARCHAR(45) NULL,\par
+  `codi postal` VARCHAR(15) NULL,\par
+  PRIMARY KEY (`id_usuari`),\par
+  UNIQUE INDEX `id_usuari_UNIQUE` (`id_usuari` ASC) VISIBLE)\par
+ENGINE = InnoDB;\par
+\par
+\par
+-- -----------------------------------------------------\par
+-- Table `youtube`.`videos`\par
+-- -----------------------------------------------------\par
+CREATE TABLE IF NOT EXISTS `youtube`.`videos` (\par
+  `id_videos` INT NOT NULL AUTO_INCREMENT,\par
+  `estat` ENUM('PUBLIC', 'PRIVAT', 'OCULT') NULL,\par
+  `titol` VARCHAR(45) NULL,\par
+  `grandaria` INT NULL,\par
+  `descripcio` LONGTEXT NULL,\par
+  `nom_arxiu` VARCHAR(45) NULL,\par
+  `durada` INT NULL,\par
+  `thumbnail` BLOB NULL,\par
+  `nombre_reproduccions` INT NULL,\par
+  `likes` INT NULL,\par
+  `dislikes` INT NULL,\par
+  `data_publicacio` DATE NULL,\par
+  `usuari_id` INT NOT NULL,\par
+  PRIMARY KEY (`id_videos`),\par
+  UNIQUE INDEX `id_videos_UNIQUE` (`id_videos` ASC) VISIBLE,\par
+  UNIQUE INDEX `usuari_id_UNIQUE` (`usuari_id` ASC) VISIBLE,\par
+  CONSTRAINT `usuari_id`\par
+    FOREIGN KEY (`usuari_id`)\par
+    REFERENCES `youtube`.`usuari` (`id_usuari`)\par
+    ON DELETE NO ACTION\par
+    ON UPDATE NO ACTION)\par
+ENGINE = InnoDB;\par
+\par
+\par
+-- -----------------------------------------------------\par
+-- Table `youtube`.`Etiqueta`\par
+-- -----------------------------------------------------\par
+CREATE TABLE IF NOT EXISTS `youtube`.`Etiqueta` (\par
+  `id_etiqueta` INT NOT NULL AUTO_INCREMENT,\par
+  `video_id` INT NOT NULL,\par
+  `nom` VARCHAR(45) NULL,\par
+  PRIMARY KEY (`id_etiqueta`),\par
+  UNIQUE INDEX `id_etiqueta_UNIQUE` (`id_etiqueta` ASC) VISIBLE,\par
+  UNIQUE INDEX `video_id_UNIQUE` (`video_id` ASC) VISIBLE,\par
+  CONSTRAINT `video_id`\par
+    FOREIGN KEY (`video_id`)\par
+    REFERENCES `youtube`.`videos` (`id_videos`)\par
+    ON DELETE NO ACTION\par
+    ON UPDATE NO ACTION)\par
+ENGINE = InnoDB;\par
+\par
+\par
+-- -----------------------------------------------------\par
+-- Table `youtube`.`Canal`\par
+-- -----------------------------------------------------\par
+CREATE TABLE IF NOT EXISTS `youtube`.`Canal` (\par
+  `id_canal` INT NOT NULL AUTO_INCREMENT,\par
+  `nom` VARCHAR(45) NULL,\par
+  `descripcio` LONGTEXT NULL,\par
+  `data_creacio` DATE NULL,\par
+  `usuari_id` INT NOT NULL,\par
+  PRIMARY KEY (`id_canal`),\par
+  UNIQUE INDEX `id_canal_UNIQUE` (`id_canal` ASC) VISIBLE,\par
+  UNIQUE INDEX `usuari_id_UNIQUE` (`usuari_id` ASC) VISIBLE,\par
+  CONSTRAINT `usuari_id`\par
+    FOREIGN KEY (`usuari_id`)\par
+    REFERENCES `youtube`.`usuari` (`id_usuari`)\par
+    ON DELETE NO ACTION\par
+    ON UPDATE NO ACTION)\par
+ENGINE = InnoDB;\par
+\par
+\par
+-- -----------------------------------------------------\par
+-- Table `youtube`.`Subscripcions`\par
+-- -----------------------------------------------------\par
+CREATE TABLE IF NOT EXISTS `youtube`.`Subscripcions` (\par
+  `id_subscripcions` INT NOT NULL AUTO_INCREMENT,\par
+  `canal_id` INT NOT NULL,\par
+  `usuari_id` INT NOT NULL,\par
+  PRIMARY KEY (`id_subscripcions`),\par
+  UNIQUE INDEX `id_subscripcions_UNIQUE` (`id_subscripcions` ASC) VISIBLE,\par
+  UNIQUE INDEX `canal_id_UNIQUE` (`canal_id` ASC) VISIBLE,\par
+  UNIQUE INDEX `usuari_id_UNIQUE` (`usuari_id` ASC) VISIBLE,\par
+  CONSTRAINT `canal_id`\par
+    FOREIGN KEY (`canal_id`)\par
+    REFERENCES `youtube`.`Canal` (`id_canal`)\par
+    ON DELETE NO ACTION\par
+    ON UPDATE NO ACTION,\par
+  CONSTRAINT `usuari_id`\par
+    FOREIGN KEY (`usuari_id`)\par
+    REFERENCES `youtube`.`usuari` (`id_usuari`)\par
+    ON DELETE NO ACTION\par
+    ON UPDATE NO ACTION)\par
+ENGINE = InnoDB;\par
+\par
+\par
+-- -----------------------------------------------------\par
+-- Table `youtube`.`Likes`\par
+-- -----------------------------------------------------\par
+CREATE TABLE IF NOT EXISTS `youtube`.`Likes` (\par
+  `id_likes` INT NOT NULL AUTO_INCREMENT,\par
+  `usuari_id` INT NOT NULL,\par
+  `video_id` INT NOT NULL,\par
+  `data` DATETIME NULL,\par
+  PRIMARY KEY (`id_likes`),\par
+  UNIQUE INDEX `id_likes_UNIQUE` (`id_likes` ASC) VISIBLE,\par
+  UNIQUE INDEX `usuari_id_UNIQUE` (`usuari_id` ASC) VISIBLE,\par
+  UNIQUE INDEX `video_id_UNIQUE` (`video_id` ASC) VISIBLE,\par
+  CONSTRAINT `usuari_id`\par
+    FOREIGN KEY (`usuari_id`)\par
+    REFERENCES `youtube`.`usuari` (`id_usuari`)\par
+    ON DELETE NO ACTION\par
+    ON UPDATE NO ACTION,\par
+  CONSTRAINT `video_id`\par
+    FOREIGN KEY (`video_id`)\par
+    REFERENCES `youtube`.`videos` (`id_videos`)\par
+    ON DELETE NO ACTION\par
+    ON UPDATE NO ACTION)\par
+ENGINE = InnoDB;\par
+\par
+\par
+-- -----------------------------------------------------\par
+-- Table `youtube`.`Dislikes`\par
+-- -----------------------------------------------------\par
+CREATE TABLE IF NOT EXISTS `youtube`.`Dislikes` (\par
+  `id_dislikes` INT NOT NULL AUTO_INCREMENT,\par
+  `video_id` INT NOT NULL,\par
+  `usuari_id` INT NOT NULL,\par
+  `data` DATETIME NULL,\par
+  PRIMARY KEY (`id_dislikes`),\par
+  UNIQUE INDEX `id_dislikes_UNIQUE` (`id_dislikes` ASC) VISIBLE,\par
+  UNIQUE INDEX `video_id_UNIQUE` (`video_id` ASC) VISIBLE,\par
+  UNIQUE INDEX `usuari_id_UNIQUE` (`usuari_id` ASC) VISIBLE,\par
+  CONSTRAINT `usuari_id`\par
+    FOREIGN KEY (`usuari_id`)\par
+    REFERENCES `youtube`.`usuari` (`id_usuari`)\par
+    ON DELETE NO ACTION\par
+    ON UPDATE NO ACTION,\par
+  CONSTRAINT `video_id`\par
+    FOREIGN KEY (`video_id`)\par
+    REFERENCES `youtube`.`videos` (`id_videos`)\par
+    ON DELETE NO ACTION\par
+    ON UPDATE NO ACTION)\par
+ENGINE = InnoDB;\par
+\par
+\par
+-- -----------------------------------------------------\par
+-- Table `youtube`.`Playlist`\par
+-- -----------------------------------------------------\par
+CREATE TABLE IF NOT EXISTS `youtube`.`Playlist` (\par
+  `id_playlist` INT NOT NULL AUTO_INCREMENT,\par
+  `usuari_id` INT NOT NULL,\par
+  `video_id` INT NOT NULL,\par
+  `data_creacio` DATE NULL,\par
+  `estat` ENUM('PUBLIC', 'PRIVAT') NULL,\par
+  PRIMARY KEY (`id_playlist`),\par
+  UNIQUE INDEX `id_playlist_UNIQUE` (`id_playlist` ASC) VISIBLE,\par
+  UNIQUE INDEX `usuari_id_UNIQUE` (`usuari_id` ASC) VISIBLE,\par
+  UNIQUE INDEX `video_id_UNIQUE` (`video_id` ASC) VISIBLE,\par
+  CONSTRAINT `usuari_id`\par
+    FOREIGN KEY (`usuari_id`)\par
+    REFERENCES `youtube`.`usuari` (`id_usuari`)\par
+    ON DELETE NO ACTION\par
+    ON UPDATE NO ACTION,\par
+  CONSTRAINT `video_id`\par
+    FOREIGN KEY (`video_id`)\par
+    REFERENCES `youtube`.`videos` (`id_videos`)\par
+    ON DELETE NO ACTION\par
+    ON UPDATE NO ACTION)\par
+ENGINE = InnoDB;\par
+\par
+\par
+-- -----------------------------------------------------\par
+-- Table `youtube`.`Comentaris`\par
+-- -----------------------------------------------------\par
+CREATE TABLE IF NOT EXISTS `youtube`.`Comentaris` (\par
+  `id_comentari` INT NOT NULL AUTO_INCREMENT,\par
+  `usuari_id` INT NOT NULL,\par
+  `video_id` INT NOT NULL,\par
+  `text` LONGTEXT NULL,\par
+  `data_creacio` DATE NULL,\par
+  PRIMARY KEY (`id_comentari`),\par
+  UNIQUE INDEX `id_comentari_UNIQUE` (`id_comentari` ASC) VISIBLE,\par
+  UNIQUE INDEX `usuari_id_UNIQUE` (`usuari_id` ASC) VISIBLE,\par
+  UNIQUE INDEX `video_id_UNIQUE` (`video_id` ASC) VISIBLE,\par
+  CONSTRAINT `video_id`\par
+    FOREIGN KEY (`video_id`)\par
+    REFERENCES `youtube`.`videos` (`id_videos`)\par
+    ON DELETE NO ACTION\par
+    ON UPDATE NO ACTION,\par
+  CONSTRAINT `usuaris_id`\par
+    FOREIGN KEY (`usuari_id`)\par
+    REFERENCES `youtube`.`usuari` (`id_usuari`)\par
+    ON DELETE NO ACTION\par
+    ON UPDATE NO ACTION)\par
+ENGINE = InnoDB;\par
+\par
+\par
+-- -----------------------------------------------------\par
+-- Table `youtube`.`Opinions`\par
+-- -----------------------------------------------------\par
+CREATE TABLE IF NOT EXISTS `youtube`.`Opinions` (\par
+  `id_opinio` INT NOT NULL AUTO_INCREMENT,\par
+  `usuari_id` INT NOT NULL,\par
+  `comentari_id` INT NOT NULL,\par
+  `opinio` ENUM('LIKE', 'DISLIKE') NULL,\par
+  `data` DATE NULL,\par
+  PRIMARY KEY (`id_opinio`),\par
+  UNIQUE INDEX `id_opinio_UNIQUE` (`id_opinio` ASC) VISIBLE,\par
+  UNIQUE INDEX `usuari_id_UNIQUE` (`usuari_id` ASC) VISIBLE,\par
+  UNIQUE INDEX `comentari_id_UNIQUE` (`comentari_id` ASC) VISIBLE,\par
+  CONSTRAINT `usuari_id`\par
+    FOREIGN KEY (`usuari_id`)\par
+    REFERENCES `youtube`.`usuari` (`id_usuari`)\par
+    ON DELETE NO ACTION\par
+    ON UPDATE NO ACTION,\par
+  CONSTRAINT `comentari_id`\par
+    FOREIGN KEY (`comentari_id`)\par
+    REFERENCES `youtube`.`Comentaris` (`id_comentari`)\par
+    ON DELETE NO ACTION\par
+    ON UPDATE NO ACTION)\par
+ENGINE = InnoDB;\par
+\par
+\par
+SET SQL_MODE=@OLD_SQL_MODE;\par
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;\par
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;\par
+}
+ 

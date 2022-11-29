@@ -1,0 +1,16 @@
+INSERT INTO `pizzeria`.`botiga` (`id_botiga`, `adreça`, `codi_postal`, `localitat`, `provincia`) VALUES ('1', 'adreça1', '08999', 'Barna', 'Barna');
+INSERT INTO `pizzeria`.`botiga` (`id_botiga`, `adreça`, `codi_postal`, `localitat`, `provincia`) VALUES ('2', 'adreça2', '08000', 'Berna', 'Berna');
+INSERT INTO `pizzeria`.`clients` (`id_client`, `nom`, `cognoms`, `adreça`, `codi_postal`, `localitat`, `provincia`, `telefon`) VALUES ('1', 'paco', 'peco', 'adreça1', '08888', 'Borna', 'Berno', '123456789');
+INSERT INTO `pizzeria`.`clients` (`id_client`, `nom`, `cognoms`, `adreça`, `codi_postal`, `localitat`, `provincia`, `telefon`) VALUES ('2', 'pepa', 'pipo', 'adreça2', '08777', 'Berna', 'Barna', '987654321');
+INSERT INTO `pizzeria`.`empleats` (`id_empleat`, `nom`, `cognoms`, `nif`, `telefon`, `botiga_id`) VALUES ('1', 'joan', 'jim', '34567899P', '123456789', '1');
+INSERT INTO `pizzeria`.`empleats` (`id_empleat`, `nom`, `cognoms`, `nif`, `telefon`, `botiga_id`) VALUES ('2', 'joana', 'jam', '33543211L', '987654321', '2');
+INSERT INTO `pizzeria`.`empleats` (`id_empleat`, `nom`, `cognoms`, `nif`, `telefon`, `botiga_id`, `tipus`) VALUES ('3', 'jan', 'jon', '32234345Ñ', '456765432', '1', 'REPARTIDOR');
+INSERT INTO `pizzeria`.`comandes` (`id_comanda`, `client_id`, `botiga_id`, `data_comanda`, `preu_total`, `tipus`, `empleat_id`) VALUES ('1', '1', '1', '2022-12-16 00:00:00', '10', 'RECOLLIR','1');
+INSERT INTO `pizzeria`.`comandes` (`id_comanda`, `client_id`, `botiga_id`, `data_comanda`, `preu_total`, `tipus`, `empleat_id`,`data_lliurament`) VALUES ('2', '2', '1', '2022-12-26 00:00:00', '20', 'DOMICILI', '3','2022-12-27 00:00:00');
+INSERT INTO `pizzeria`.`comandes` (`id_comanda`, `client_id`, `botiga_id`, `data_comanda`, `preu_total`, `tipus`, `empleat_id`) VALUES ('3', '1', '2', '2022-12-25 00:00:00', '30', 'RECOLLIR', '2');
+INSERT INTO `pizzeria`.`categories` (`id_categoria`, `nom`) VALUES ('1', 'Hawaiana');
+INSERT INTO `pizzeria`.`categories` (`id_categoria`, `nom`) VALUES ('2', 'Margarida');
+INSERT INTO `pizzeria`.`categories` (`id_categoria`, `nom`) VALUES ('3', 'Almogaver');
+INSERT INTO `pizzeria`.`productes` (`id_producte`, `tipus`, `nom`, `descripcio`, `preu`) VALUES ('1', 'HAMBURGUESA', 'Burguer', 'Hamburguesa gran', '10');
+INSERT INTO `pizzeria`.`productes` (`id_producte`, `tipus`, `nom`, `descripcio`, `preu`) VALUES ('2', 'BEGUDA', 'Aigua', 'aigua que és més sa', '1');
+INSERT INTO `pizzeria`.`productes` (`id_producte`, `tipus`, `nom`, `descripcio`, `preu`, `categoria_id`) VALUES ('3', 'PIZZA', 'Pizza', 'Pizza amb pinya', '10','1');

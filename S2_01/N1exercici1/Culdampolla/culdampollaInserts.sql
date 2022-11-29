@@ -1,0 +1,20 @@
+INSERT INTO `culdampolla`.`client` (`id_client`, `nom`, `codi_postal`, `Telefon`, `e-mail`, `data_registre`, `client_nou`) VALUES ('1', 'client_1', '089096', '123456789', 'email@email.com', '2020-10-10', '0');
+INSERT INTO `culdampolla`.`client` (`id_client`, `nom`, `codi_postal`, `Telefon`, `e-mail`, `data_registre`, `client_nou`, `recomanador_id`) VALUES ('2', 'client_2', '089999', '987654321', 'email@email.com', '2021-10-11', '1', '1');
+INSERT INTO `culdampolla`.`client` (`id_client`, `nom`, `codi_postal`, `Telefon`, `e-mail`, `data_registre`, `client_nou`) VALUES ('3', 'client_3', '080000', '987654321', 'email@email.com', '2022-10-12', '0');
+INSERT INTO `culdampolla`.`cristal_dret` (`id_cristal_dret`, `color`, `graduacio`, `preu`) VALUES ('1', 'verd', '3', '300');
+INSERT INTO `culdampolla`.`cristal_dret` (`id_cristal_dret`, `color`, `graduacio`, `preu`) VALUES ('2', 'blanc', '2', '300');
+INSERT INTO `culdampolla`.`cristal_esq` (`id_cristal_esq`, `color`, `graduacio`, `preu`) VALUES ('1', 'verd', '3', '300');
+INSERT INTO `culdampolla`.`cristal_esq` (`id_cristal_esq`, `color`, `graduacio`, `preu`) VALUES ('2', 'blanc', '2', '300');
+INSERT INTO `culdampolla`.`empleat` (`id_empleat`, `nom`) VALUES ('1', 'Manel');
+INSERT INTO `culdampolla`.`empleat` (`id_empleat`, `nom`) VALUES ('2', 'Lola');
+INSERT INTO `culdampolla`.`factura` (`id_factura`, `usuari_id`, `ulleres_id`, `preu`, `empleat_id`) VALUES ('1', '1', '1', '1000', '1');
+INSERT INTO `culdampolla`.`factura` (`id_factura`, `usuari_id`, `ulleres_id`, `preu`, `empleat_id`) VALUES ('2', '3', '3', '1000', '2');
+INSERT INTO `culdampolla`.`montura` (`id_montura`, `color`, `tipus`, `preu`) VALUES ('1', 'verd', 'FLOTANT', '200');
+INSERT INTO `culdampolla`.`montura` (`id_montura`, `color`, `tipus`, `preu`) VALUES ('2', 'negre', 'PASTA', '200');
+INSERT INTO `culdampolla`.`montura` (`id_montura`, `color`, `tipus`, `preu`) VALUES ('3', 'blanc', 'PASTA', '200');
+INSERT INTO `culdampolla`.`proveidor` (`idproveidor`, `Nom`, `Carrer`, `Numero`, `Pis`, `Porta`, `Ciutat`, `Codi_Postal`, `Pais`, `Telefon`, `Fax`, `NIF`) VALUES ('1', 'Pepe', 'carrer pepe', '1', '1', '1', 'Barcelona', '8888', 'Esp', '5433456', '2346578', '12345678P');
+INSERT INTO `culdampolla`.`proveidor` (`idproveidor`, `Nom`, `Carrer`, `Numero`, `Pis`, `Porta`, `Ciutat`, `Codi_Postal`, `Pais`, `Telefon`, `Fax`, `NIF`) VALUES ('2', 'Montse', 'carrer Montse', '2', '2', '2', 'Cornellla', '9999', 'Esp', '65789322', '45768922', '987654321O');
+INSERT INTO `culdampolla`.`ulleres` (`id_ulleres`, `marca`, `preu_total`, `proveidor_id`, `cristal_dret_id`, `cristal_esq_id`, `montura_id`) VALUES ('1', 'marca1', '900', '1', '1', '1', '1');
+INSERT INTO `culdampolla`.`ulleres` (`id_ulleres`, `marca`, `preu_total`, `proveidor_id`, `cristal_dret_id`, `cristal_esq_id`, `montura_id`) VALUES ('2', 'marca2', '900', '2', '2', '2', '2');
+INSERT INTO `culdampolla`.`ulleres` (`id_ulleres`, `marca`, `preu_total`, `proveidor_id`, `cristal_dret_id`, `cristal_esq_id`, `montura_id`) VALUES ('3', 'marca3', '1000', '1', '1', '2', '2');
+
